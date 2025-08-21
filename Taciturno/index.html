@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      padding: 20px;
       background: linear-gradient(135deg, #222, #a00);
       color: #fff;
     }
@@ -82,6 +82,23 @@
       bottom: 0;
       width: 100%;
     }
+  /* Classe genérica de hover */
+    .zoom-hover {
+     min-width:  50px;
+     max-width: 200px;
+      margin: 10px 0; /* espaço entre as imagens */
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block; /* garante que fiquem alinhadas na esquerda */
+      margin-left: 10px; /* espaço à esquerda */
+    }
+   .zoom-hover:hover {
+      transform: scale(1.8);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+      margin-left: 100px; /* espaço à esquerda */
+    }
+
   </style>
 </head>
 <body>
@@ -110,7 +127,31 @@
     <p>&copy; 2025 - Todos os direitos reservados</p>
   </footer>
 
+<center> <h2>Projetos Recentes</h2> </center>
+
+       <h2>Projeto Despesas.</h2>
+        <br>
+ <img src="imagens/Despesas.png" alt="Projeto1" class="zoom-hover">
+
+       <h2>Projeto Finanças.</h2>
+        <br>
+
+  <img src="imagens/Financas.png" alt="Projeto2" class="zoom-hover">
+
+       <h2>Projeto Notícia.</h2>
+        <br>
+  <img src="imagens/Noticia.png" alt="Projeto3" class="zoom-hover">
+
+        <h2>Projeto 4.</h2>
+          <br>
+  <img src="Projeto4.jpg" alt="Projeto4" class="zoom-hover">
+
+
+
+
+
+
 </body>
 </html>
- /* git mudanças teste */
- 
+
+<!-- /*comentar codigo CSS no VSCode: Ctrl + K + C */ -->
