@@ -13,21 +13,33 @@ header {
   gap: 10px;
 }
 
-/* Ícone redondo */
+/* bolinha do ícone */
 .icon {
-  width: 40px;       /* tamanho menor */
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;  /* garante que a imagem fique dentro do círculo */
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  overflow: hidden;
   border: 2px solid white;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* Ajuste da imagem dentro do círculo */
 .icon img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* mantém proporção sem distorcer */
+  display: block;
 }
+
+/* ao passar o mouse, o círculo cresce junto com a imagem */
+.icon:hover {
+  transform: scale(1.8);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+}
+
 
 /* Texto */
 .logo h1 {

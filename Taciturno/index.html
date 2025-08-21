@@ -86,10 +86,11 @@
       bottom: 0;
       width: 100%;
     }
-  /* Classe genérica de hover */
+
+    /* Classe genérica de hover (SEU VISUAL MANTIDO) */
     .zoom-hover {
-     min-width:  50px;
-     max-width: 200px;
+      min-width: 50px;
+      max-width: 200px;
       margin: 10px 0; /* espaço entre as imagens */
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       border-radius: 10px;
@@ -97,12 +98,80 @@
       display: block; /* garante que fiquem alinhadas na esquerda */
       margin-left: 10px; /* espaço à esquerda */
     }
-   .zoom-hover:hover {
+    .zoom-hover:hover {
       transform: scale(1.8);
       box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
       margin-left: 100px; /* espaço à esquerda */
     }
 
+    /* ===========================
+       ADICIONADO: estilos do modal
+       (cores e vibe combinando com o seu tema)
+       =========================== */
+    .modal-zoom {
+      display: none;               /* oculto por padrão */
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;               /* acima do footer fixo */
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(2px);
+    }
+    .modal-zoom.aberto { display: flex; }
+
+    .modal-zoom img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.9);
+      animation: zoomIn .35s ease;
+      background: #000;
+      display: block;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.92); opacity: 0.2; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    /* botões do modal */
+    .mz-fechar,
+    .mz-prev,
+    .mz-next {
+      position: absolute;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+      transition: color .25s ease, transform .12s ease;
+      text-shadow: 0 2px 10px rgba(0,0,0,.7);
+    }
+    .mz-fechar:hover,
+    .mz-prev:hover,
+    .mz-next:hover { color: #f22; } /* tom vermelho combinando */
+
+    .mz-fechar {
+      top: 18px; right: 28px;
+      font-size: 38px;
+      line-height: 1;
+    }
+    .mz-prev, .mz-next {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 54px;
+      padding: 8px 12px;
+    }
+    .mz-prev { left: 22px; }
+    .mz-next { right: 22px; }
+
+    /* Acessibilidade invisível */
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
   </style>
 </head>
 <body>
@@ -131,31 +200,113 @@
     <p>&copy; 2025 - Todos os direitos reservados</p>
   </footer>
 
-<center> <h2>Projetos Recentes</h2> </center>
+  <!-- SEÇÃO PROJETOS (mantida) -->
+  <center><h2>Projetos Recentes</h2></center>
 
-       <h2>Projeto Despesas</h2>
-        <br>
- <img src="imagens/Despesas.png" alt="Projeto1" class="zoom-hover">
+  <h2>Projeto Despesas</h2>
+  <br>
+  <img src="imagens/Despesas.png" alt="Projeto1" class="zoom-hover">
 
-       <h2>Projeto Finanças</h2>
-        <br>
-
+  <h2>Projeto Finanças</h2>
+  <br>
   <img src="imagens/Financas.png" alt="Projeto2" class="zoom-hover">
 
-       <h2>Projeto Notícia</h2>
-        <br>
+  <h2>Projeto Notícia</h2>
+  <br>
   <img src="imagens/Noticia.png" alt="Projeto3" class="zoom-hover">
 
-        <h2>Projeto 4</h2>
-          <br>
+  <h2>Projeto 4</h2>
+  <br>
   <img src="Projeto4.jpg" alt="Projeto4" class="zoom-hover">
 
+  <!-- ===========================
+       ADICIONADO: modal de zoom
+       =========================== -->
+  <div class="modal-zoom" id="modalZoom" aria-hidden="true" role="dialog" aria-label="Visualização ampliada">
+    <span class="mz-fechar" id="mzFechar" aria-label="Fechar (Esc)">&times;</span>
+    <span class="mz-prev"   id="mzPrev"   aria-label="Anterior (←)">&#10094;</span>
+    <img id="mzImg" src="" alt="Imagem ampliada">
+    <span class="mz-next"   id="mzNext"   aria-label="Próxima (→)">&#10095;</span>
+  </div>
 
+  <!-- ===========================
+       ADICIONADO: script do modal
+       =========================== -->
+  <script>
+    (function () {
+      const thumbs = Array.from(document.querySelectorAll('.zoom-hover'));
+      const modal  = document.getElementById('modalZoom');
+      const img    = document.getElementById('mzImg');
+      const btnFechar = document.getElementById('mzFechar');
+      const btnPrev   = document.getElementById('mzPrev');
+      const btnNext   = document.getElementById('mzNext');
 
+      let idxAtual = 0;
 
+      // Abre no clique (hover continua sendo só CSS)
+      thumbs.forEach((el, i) => {
+        el.addEventListener('click', () => abrir(i));
+      });
 
+      function abrir(i) {
+        idxAtual = i;
+        img.src = thumbs[idxAtual].src;
+        img.alt = thumbs[idxAtual].alt || 'Imagem ampliada';
+        modal.classList.add('aberto');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        preloadVizinho(idxAtual + 1);
+        preloadVizinho(idxAtual - 1);
+        // foco no botão fechar para acessibilidade
+        setTimeout(() => btnFechar.focus(), 50);
+      }
 
+      function fechar() {
+        modal.classList.remove('aberto');
+        modal.setAttribute('aria-hidden', 'true');
+        img.src = '';
+        document.body.style.overflow = '';
+      }
+
+      function mostrar(i) {
+        if (i < 0) i = thumbs.length - 1;
+        if (i >= thumbs.length) i = 0;
+        idxAtual = i;
+        img.src = thumbs[idxAtual].src;
+        img.alt = thumbs[idxAtual].alt || 'Imagem ampliada';
+        preloadVizinho(idxAtual + 1);
+        preloadVizinho(idxAtual - 1);
+      }
+
+      function preloadVizinho(i) {
+        if (i < 0) i = thumbs.length - 1;
+        if (i >= thumbs.length) i = 0;
+        const pre = new Image();
+        pre.src = thumbs[i].src;
+      }
+
+      // Navegação
+      btnPrev.addEventListener('click', () => mostrar(idxAtual - 1));
+      btnNext.addEventListener('click', () => mostrar(idxAtual + 1));
+      btnFechar.addEventListener('click', fechar);
+
+      // Fechar clicando no fundo
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) fechar();
+      });
+
+      // Teclado
+      window.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('aberto')) return;
+        if (e.key === 'Escape') fechar();
+        if (e.key === 'ArrowLeft')  mostrar(idxAtual - 1);
+        if (e.key === 'ArrowRight') mostrar(idxAtual + 1);
+      });
+    })();
+  </script>
 </body>
 </html>
+
+<!-- /*comentar codigo CSS no VSCode: Ctrl + K + C */ -->
 
 <!-- /*comentar codigo CSS no VSCode: Ctrl + K + C */ -->
