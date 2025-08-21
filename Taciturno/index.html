@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taciturno</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #222, #a00);
+      color: #fff;
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 15px;
+      display: flex;
+      justify-content: center;   /* centraliza logo no meio da tela */
+      align-items: center;
+    }
+
+    /* container ícone + texto */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* espaço entre imagem e texto */
+    }
+
+    /* bolinha do ícone */
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;         /* corta a imagem no formato redondo */
+      border: 2px solid white;
+      flex-shrink: 0;
+    }
+
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;        /* evita deformar */
+      display: block;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    /* NAV */
+    nav {
+      background: #900;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* MAIN */
+    main {
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <div class="icon">
+        <img src="imagens/taciturno.jpg" alt="Ícone">
+      </div>
+      <h1>Taciturno</h1>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#">Início</a>
+    <a href="#">Sobre</a>
+    <a href="#">Contato</a>
+  </nav>
+
+  <main>
+    <h2>Conteúdo Principal</h2>
+    <p>Este é um exemplo de página inicial simples em HTML.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 - Todos os direitos reservados</p>
+  </footer>
+
+</body>
+</html>

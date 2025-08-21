@@ -1,0 +1,37 @@
+header {
+  display: flex;
+  justify-content: center; /* centraliza o conteúdo todo */
+  align-items: center;
+  background: linear-gradient(90deg, #000, #b30000);
+  padding: 15px;
+}
+
+/* Ícone + título lado a lado */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Ícone redondo */
+.icon {
+  width: 40px;       /* tamanho menor */
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;  /* garante que a imagem fique dentro do círculo */
+  border: 2px solid white;
+}
+
+/* Ajuste da imagem dentro do círculo */
+.icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Texto */
+.logo h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: white;
+}
