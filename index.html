@@ -334,6 +334,8 @@
     <a href="#">Início</a>
     <a href="#">Sobre</a>
     <a href="#">Contato</a>
+    <a class="nav-link text-light" href="habilidades.html"> <a href="habilidades.html">Habilidades</a></a>
+
   </nav>
 
   <div class="conteudo">
@@ -387,8 +389,12 @@
             <p>Resumo rápido</p>
           </div>
           <div class="card-back">
-            <h4>Detalhes</h4>
-            <p>Mais informações sobre este projeto</p>
+            <h4>Olá, visite meu Github
+              e confira meus projetos! 
+              <br>:D
+            </h4>Leia QR Code abaixo:
+            </h4>
+            <p><img src="imagens/qrcodegithub.png" alt="Ícone" style="width:80px; height:80px; border-radius:20%; margin:10px;"></p>
           </div>
         </div>
       </div>
@@ -475,6 +481,26 @@
         if(e.key==='ArrowRight') mostrar(idxAtual+1);
       });
     })();
+
+    // ---------- ANIMAÇÃO DE CARREGAMENTO BARRAS DE HABILIDADES ---------- //
+document.addEventListener("DOMContentLoaded", () => {
+  const skills = document.querySelectorAll(".skill");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target.querySelector(".skill-progress");
+        const percent = entry.target.getAttribute("data-skill");
+        bar.style.width = percent;
+        observer.unobserve(entry.target); // Evita repetir a animação
+      }
+    });
+  }, { threshold: 0.5 });
+
+  skills.forEach(skill => observer.observe(skill));
+});
+
+
 
     /* ---------- TOGGLE DE TEMA ---------- */
     const toggle = document.getElementById('toggleTheme');
